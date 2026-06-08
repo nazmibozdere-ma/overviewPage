@@ -145,14 +145,18 @@ function NavButton({ label }) {
 
 // ── Empty-state card (No Optimization) ───────────────────────────────────────
 
-function EmptyOptCard({ icon: Icon, iconColor, iconBg, title, navLabel, preset }) {
-  const period = preset || 'the selected period'
+const EMPTY_DESCRIPTIONS = {
+  'Smart Bidding':    'Optimize bids across all your keywords toward your strategy.',
+  'Automations':      'Define your rules and let your campaigns run without daily manual work.',
+  'Budget Allocation':'Move idle budget to your best performing campaigns and drive more value from your total spend.',
+  'CPP A/B Testing':  'Test your creative alternatives and find the winning variant for your ads.',
+}
+
+function EmptyOptCard({ icon: Icon, iconColor, iconBg, title, navLabel }) {
   return (
     <CardShell icon={Icon} iconColor={iconColor} iconBg={iconBg} title={title}>
       <p className="text-xs leading-relaxed flex-1" style={{ color: '#6b7280' }}>
-        There is no action in{' '}
-        <span className="font-semibold" style={{ color: '#374151' }}>{period}</span>.
-        {' '}Let&rsquo;s start optimizing now!
+        {EMPTY_DESCRIPTIONS[title]}
       </p>
       <NavButton label={navLabel} />
     </CardShell>
@@ -230,16 +234,16 @@ function BudgetAllocationCard({ data }) {
 }
 
 // ── Section ───────────────────────────────────────────────────────────────────
-export default function OptimizationSection({ app, integrationState, preset }) {
+export default function OptimizationSection({ app, integrationState }) {
   const data = OPTIMIZATION_DATA[app] || OPTIMIZATION_DATA['Square Point of Sale (POS)']
 
   if (integrationState === 'no-optimization') {
     return (
       <div className="grid gap-4" style={{ gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' }}>
-        <EmptyOptCard icon={Zap}          iconColor="#f59e0b" iconBg="#fef3c7" title="Smart Bidding"    navLabel="Go to Smart Bidding"    preset={preset} />
-        <EmptyOptCard icon={GitFork}      iconColor="#8b5cf6" iconBg="#f5f3ff" title="Automations"      navLabel="Go to Automations"      preset={preset} />
-        <EmptyOptCard icon={FlaskConical} iconColor="#06b6d4" iconBg="#ecfeff" title="CPP A/B Testing"  navLabel="Go to CPP A/B Testing"  preset={preset} />
-        <EmptyOptCard icon={Wallet}       iconColor="#10b981" iconBg="#d1fae5" title="Budget Allocation" navLabel="Go to Budget Allocation" preset={preset} />
+        <EmptyOptCard icon={Zap}          iconColor="#f59e0b" iconBg="#fef3c7" title="Smart Bidding"    navLabel="Go to Smart Bidding"    />
+        <EmptyOptCard icon={GitFork}      iconColor="#8b5cf6" iconBg="#f5f3ff" title="Automations"      navLabel="Go to Automations"      />
+        <EmptyOptCard icon={FlaskConical} iconColor="#06b6d4" iconBg="#ecfeff" title="CPP A/B Testing"  navLabel="Go to CPP A/B Testing"  />
+        <EmptyOptCard icon={Wallet}       iconColor="#10b981" iconBg="#d1fae5" title="Budget Allocation" navLabel="Go to Budget Allocation" />
       </div>
     )
   }

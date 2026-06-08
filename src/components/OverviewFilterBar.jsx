@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { ChevronDown, SlidersHorizontal, TrendingUp, Check } from 'lucide-react'
+import { ChevronDown, Check } from 'lucide-react'
 import DateRangePicker from './DateRangePicker'
 
 const APPS = [
@@ -74,113 +74,55 @@ function AppDisplay({ app }) {
   )
 }
 
-// ── Goal dropdown ─────────────────────────────────────────────────────────────
-function Dropdown({ label, options, selected, onSelect, minWidth = 160 }) {
+// ── Mini dropdown (used inside the grouped filter bar) ────────────────────────
+function MiniDropdown({ label, options, selected, onSelect }) {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
 
   useEffect(() => {
-    function handleClickOutside(e) {
-      if (ref.current && !ref.current.contains(e.target)) setOpen(false)
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
+    function handler(e) { if (ref.current && !ref.current.contains(e.target)) setOpen(false) }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
   }, [])
 
   return (
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-2 px-3 py-2 rounded-lg border text-sm font-medium select-none transition-colors"
+        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors select-none"
         style={{
-          borderColor: open ? '#4B7BF5' : '#e5e7eb',
-          backgroundColor: '#ffffff',
-          color: '#111827',
-          minWidth,
+          border:          `1px solid ${open ? '#4B7BF5' : '#e5e7eb'}`,
+          backgroundColor: open ? '#f0f4ff' : '#ffffff',
+          color:           open ? '#4B7BF5' : '#374151',
         }}
       >
-        <span className="flex-1 text-left">{selected || label}</span>
+        <span className="text-xs font-medium" style={{ color: '#9ca3af' }}>{label}:</span>
+        <span>{selected}</span>
         <ChevronDown
-          size={14}
-          className="flex-shrink-0 transition-transform"
-          style={{ color: '#6b7280', transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
+          size={11}
+          style={{
+            color:      open ? '#4B7BF5' : '#9ca3af',
+            transform:  open ? 'rotate(180deg)' : 'rotate(0deg)',
+            transition: 'transform 0.15s',
+            flexShrink: 0,
+          }}
         />
       </button>
 
       {open && (
         <div
-          className="absolute top-full left-0 mt-1.5 bg-white rounded-xl shadow-lg border border-gray-100 py-1.5 z-50"
-          style={{ minWidth: minWidth + 24 }}
+          className="absolute top-full left-0 mt-1.5 bg-white rounded-xl py-1.5 z-50"
+          style={{ minWidth: 200, border: '1px solid #e5e7eb', boxShadow: '0 8px 24px rgba(0,0,0,0.10)' }}
         >
           {options.map((opt) => (
             <button
               key={opt}
               onClick={() => { onSelect(opt); setOpen(false) }}
-              className="w-full flex items-center justify-between px-4 py-2.5 text-sm text-left transition-colors hover:bg-gray-50"
-              style={{ color: '#111827' }}
+              className="w-full flex items-center justify-between px-4 py-2 text-xs text-left transition-colors hover:bg-gray-50"
+              style={{ color: selected === opt ? '#4B7BF5' : '#374151', fontWeight: selected === opt ? '500' : '400' }}
             >
-              <span>{opt}</span>
-              {selected === opt && <Check size={14} style={{ color: '#4B7BF5' }} />}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
-
-// ── Attribution dropdown ──────────────────────────────────────────────────────
-function AttributionDropdown({ selected, onSelect }) {
-  const [open, setOpen] = useState(false)
-  const ref = useRef(null)
-
-  useEffect(() => {
-    function handleClickOutside(e) {
-      if (ref.current && !ref.current.contains(e.target)) setOpen(false)
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
-  return (
-    <div ref={ref} className="relative flex items-center gap-1.5">
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="w-10 h-10 flex items-center justify-center rounded-lg border transition-colors"
-        style={{
-          borderColor: open ? '#4B7BF5' : '#e5e7eb',
-          backgroundColor: open ? '#f0f4ff' : '#ffffff',
-          color: open ? '#4B7BF5' : '#6b7280',
-        }}
-      >
-        <SlidersHorizontal size={17} />
-      </button>
-
-      <button
-        className="w-10 h-10 flex items-center justify-center rounded-lg border transition-colors"
-        style={{
-          borderColor: '#e5e7eb',
-          backgroundColor: '#ffffff',
-          color: '#6b7280',
-        }}
-      >
-        <TrendingUp size={17} />
-      </button>
-
-      {open && (
-        <div
-          className="absolute top-full left-0 mt-1.5 bg-white rounded-xl shadow-lg border border-gray-100 py-1.5 z-50"
-          style={{ minWidth: 220 }}
-        >
-          {ATTRIBUTION_OPTIONS.map((opt) => (
-            <button
-              key={opt}
-              onClick={() => { onSelect(opt); setOpen(false) }}
-              className="w-full flex items-center justify-between px-4 py-2.5 text-sm text-left transition-colors hover:bg-gray-50"
-              style={{ color: '#111827' }}
-            >
-              <span>{opt}</span>
-              {selected === opt && <Check size={14} style={{ color: '#4B7BF5' }} />}
+              {opt}
+              {selected === opt && <Check size={11} style={{ color: '#4B7BF5' }} />}
             </button>
           ))}
         </div>
@@ -204,20 +146,26 @@ export default function OverviewFilterBar({
       <AppDisplay app={selectedApp} />
 
       {!appleOnly && (
-        <Dropdown
-          label="Select Goal"
-          options={APP_GOALS[selectedApp] || APP_GOALS['Square Point of Sale (POS)']}
-          selected={selectedGoal}
-          onSelect={onGoalChange}
-          minWidth={180}
-        />
-      )}
-
-      {!appleOnly && (
-        <AttributionDropdown
-          selected={selectedAttribution}
-          onSelect={setSelectedAttribution}
-        />
+        <div
+          className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl"
+          style={{ backgroundColor: '#f9fafb', border: '1px solid #e5e7eb' }}
+        >
+          <span className="text-xs font-medium whitespace-nowrap" style={{ color: '#6b7280' }}>
+            Goal View:
+          </span>
+          <MiniDropdown
+            label="Goal"
+            options={APP_GOALS[selectedApp] || APP_GOALS['Square Point of Sale (POS)']}
+            selected={selectedGoal}
+            onSelect={onGoalChange}
+          />
+          <MiniDropdown
+            label="Attribution"
+            options={ATTRIBUTION_OPTIONS}
+            selected={selectedAttribution}
+            onSelect={setSelectedAttribution}
+          />
+        </div>
       )}
 
       <DateRangePicker

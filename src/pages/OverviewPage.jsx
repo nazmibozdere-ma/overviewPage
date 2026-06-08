@@ -215,7 +215,7 @@ function AttributionPartnerCard({ selectedApp, appGoals, integrationState }) {
               <path d="M10.5 8.5v5M8 11h5" stroke="#6b7280" strokeWidth="1.2" strokeLinecap="round"/>
             </svg>
           </div>
-          <span className="text-sm font-semibold" style={{ color: '#111827' }}>Attribution Partner</span>
+          <span className="text-sm font-semibold" style={{ color: '#111827' }}>MMP Integration</span>
         </div>
         <button
           onClick={() => setWarned((v) => !v)}
@@ -241,7 +241,7 @@ function AttributionPartnerCard({ selectedApp, appGoals, integrationState }) {
               {APP_ICON[selectedApp]}
               <span className="font-semibold" style={{ color: '#111827' }}>{selectedApp}</span>
             </span>{' '}
-            app, there is no attribution partner integrated.
+            app, there is no MMP integrated.
           </p>
           <button
             className="self-start inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold"
@@ -433,16 +433,19 @@ export default function OverviewPage({ selectedApp, campaignGroup, integrationSt
             className="grid gap-3"
             style={{ gridTemplateColumns: 'repeat(5, minmax(0, 1fr))' }}
           >
-            {METRICS.map(({ label, format }) => (
-              <OverviewMetricCard
-                key={label}
-                label={label}
-                data={metricData[label]}
-                format={format}
-                dateRange={dateRange}
-                isEmpty={label === 'Goals' && integrationState === 'apple-only'}
-              />
-            ))}
+            {METRICS.map(({ label, format }) => {
+              const displayLabel = label === 'Goals' ? `Goals (${selectedGoal})` : label
+              return (
+                <OverviewMetricCard
+                  key={label}
+                  label={displayLabel}
+                  data={metricData[label]}
+                  format={format}
+                  dateRange={dateRange}
+                  isEmpty={label === 'Goals' && integrationState === 'apple-only'}
+                />
+              )
+            })}
           </div>
 
           {/* ── Ad Management ── */}

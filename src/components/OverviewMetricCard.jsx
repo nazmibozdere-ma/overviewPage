@@ -91,9 +91,8 @@ export default function OverviewMetricCard({ label, data, format, dateRange, isE
           className="flex flex-col items-start gap-0.5 text-xs font-medium mt-1"
           style={{ color: '#4B7BF5' }}
         >
-          <span>Integrate your</span>
           <span className="inline-flex items-center gap-1">
-            Attribution Partner
+            Integrate your MMP
             <ArrowRight size={11} />
           </span>
         </button>
