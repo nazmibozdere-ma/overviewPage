@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import MetricCard from './components/MetricCard'
 import DownloadChart from './components/DownloadChart'
 import Sidebar from './components/Sidebar'
@@ -37,7 +37,11 @@ export default function App() {
   const [integrationState, setIntegrationState] = useState('both')
 
   const activeCampaignGroup = CAMPAIGN_GROUPS.find((g) => g.id === selectedCampaignGroup) || CAMPAIGN_GROUPS[0]
-  const selectedApp = activeCampaignGroup.app
+  const [selectedApp, setSelectedApp] = useState(activeCampaignGroup.apps[0])
+
+  useEffect(() => {
+    setSelectedApp(activeCampaignGroup.apps[0])
+  }, [selectedCampaignGroup])
 
   // Which metric label each card slot currently shows
   const [cardAssignments, setCardAssignments] = useState(INITIAL_CARDS)
@@ -108,7 +112,13 @@ export default function App() {
         />
 
         {activePage === 'Overview' ? (
-          <OverviewPage selectedApp={selectedApp} campaignGroup={activeCampaignGroup} integrationState={integrationState} />
+          <OverviewPage
+            selectedApp={selectedApp}
+            onAppChange={setSelectedApp}
+            apps={activeCampaignGroup.apps}
+            campaignGroup={activeCampaignGroup}
+            integrationState={integrationState}
+          />
         ) : (
           <div className="flex-1 overflow-y-auto bg-gray-50 p-6">
             <div className="space-y-4">

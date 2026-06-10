@@ -9,10 +9,10 @@ function getPreviousPeriod(start, end) {
   return { prevStart, prevEnd }
 }
 
-export default function OverviewMetricCard({ label, data, format, dateRange, isEmpty }) {
+export default function OverviewMetricCard({ label, data, format, dateRange, isEmpty, emptyPrompt }) {
   const [tooltipVisible, setTooltipVisible] = useState(false)
 
-  const { cur, prev } = data
+  const { cur, prev } = data || { cur: 0, prev: 0 }
   const delta = ((cur - prev) / prev) * 100
   const isPositive = delta >= 0
   const absDelta = Math.abs(delta).toFixed(1)
@@ -88,13 +88,11 @@ export default function OverviewMetricCard({ label, data, format, dateRange, isE
       {/* Value or empty CTA */}
       {isEmpty ? (
         <button
-          className="flex flex-col items-start gap-0.5 text-xs font-medium mt-1"
-          style={{ color: '#4B7BF5' }}
+          className="flex items-start gap-1 text-xs font-medium mt-1 text-left"
+          style={{ color: '#4B7BF5', lineHeight: 1.45 }}
         >
-          <span className="inline-flex items-center gap-1">
-            Integrate your MMP
-            <ArrowRight size={11} />
-          </span>
+          <span>{emptyPrompt || 'Integrate your MMP'}</span>
+          <ArrowRight size={11} style={{ flexShrink: 0, marginTop: 1 }} />
         </button>
       ) : (
         <div className="text-lg font-bold tracking-tight" style={{ color: '#111827' }}>

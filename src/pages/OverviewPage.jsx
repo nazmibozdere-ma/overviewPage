@@ -24,6 +24,11 @@ const APP_PRESET_DATA = {
     'Last 14 Days': { Spend: [12480, 13200], Impressions: [76400,  80600],  Taps: [4620,  4880],  Installs: [2760,  2920]  }, // ↓ all
     'Last 28 Days': { Spend: [24960, 22800], Impressions: [152800, 140200], Taps: [9240,  8490],  Installs: [5530,  5080]  }, // ↑ all
   },
+  'Mock App': {
+    'Last 7 Days':  { Spend: [3180,  2940],  Impressions: [19400,  17800],  Taps: [1120,  1040],  Installs: [680,   620]   }, // ↑ all
+    'Last 14 Days': { Spend: [6360,  6820],  Impressions: [38800,  41600],  Taps: [2240,  2390],  Installs: [1360,  1450]  }, // ↓ all
+    'Last 28 Days': { Spend: [12720, 11200], Impressions: [77600,  68400],  Taps: [4480,  3960],  Installs: [2720,  2400]  }, // ↑ all
+  },
 }
 
 // ── Goal configs ─────────────────────────────────────────────────────────────
@@ -46,6 +51,7 @@ const MONTHLY_FACTOR = [0.75, 0.80, 0.88, 0.95, 1.05, 1.10, 1.08, 1.02, 0.98, 1.
 const DAILY_RATES = {
   'Square Point of Sale (POS)': { Spend: 537, Impressions: 2990, Taps: 205, Installs: 134 },
   'Cash App':                   { Spend: 694, Impressions: 4269, Taps: 258, Installs: 154 },
+  'Mock App':                   { Spend: 354, Impressions: 2180, Taps: 158, Installs: 96  },
 }
 
 function avgMonthlyFactor(start, end) {
@@ -131,6 +137,7 @@ const MMP_PARTNERS = {
   'Square Point of Sale (POS)': { name: 'AppsFlyer', bg: '#FF6B00', color: '#ffffff', initials: 'AF' },
   'Cash App':                   { name: 'Adjust',    bg: '#EB1E28', color: '#ffffff', initials: 'Adj' },
   'Afterpay':                   { name: 'Branch',    bg: '#5C35D5', color: '#ffffff', initials: 'Br' },
+  'Mock App':                   { name: 'Kochava',   bg: '#1a1a2e', color: '#ffffff', initials: 'Ko' },
 }
 
 const APP_ICON = {
@@ -147,6 +154,9 @@ const APP_ICON = {
   ),
   'Afterpay': (
     <span className="inline-flex w-5 h-5 rounded-md items-center justify-center flex-shrink-0 font-bold text-black" style={{ backgroundColor: '#B2FCE4', fontSize: 10, verticalAlign: 'middle' }}>A</span>
+  ),
+  'Mock App': (
+    <span className="inline-flex w-5 h-5 rounded-md items-center justify-center flex-shrink-0 text-white font-bold" style={{ backgroundColor: '#6366f1', fontSize: 10, verticalAlign: 'middle' }}>M</span>
   ),
 }
 
@@ -386,19 +396,16 @@ function NoIntegrationState() {
 }
 
 // ── Page component ────────────────────────────────────────────────────────────
-export default function OverviewPage({ selectedApp, campaignGroup, integrationState }) {
+export default function OverviewPage({ selectedApp, onAppChange, apps, campaignGroup, integrationState }) {
   const [dateRange, setDateRange] = useState({
     start:  PRESETS[0].start,
     end:    PRESETS[0].end,
     preset: PRESETS[0].label,
   })
-  const [selectedGoal, setSelectedGoal] = useState('Purchase')
+  const [selectedGoal, setSelectedGoal] = useState(null)
 
   useEffect(() => {
-    const goals = APP_GOALS[selectedApp]
-    if (goals && !goals.includes(selectedGoal)) {
-      setSelectedGoal(goals[0])
-    }
+    setSelectedGoal(null)
   }, [selectedApp])
 
   const handleDateChange = (start, end, preset) => {
@@ -419,7 +426,9 @@ export default function OverviewPage({ selectedApp, campaignGroup, integrationSt
       <OverviewFilterBar
         dateRange={dateRange}
         onDateChange={handleDateChange}
+        apps={apps}
         selectedApp={selectedApp}
+        onAppChange={onAppChange}
         selectedGoal={selectedGoal}
         onGoalChange={setSelectedGoal}
         integrationState={integrationState}
@@ -434,7 +443,9 @@ export default function OverviewPage({ selectedApp, campaignGroup, integrationSt
             style={{ gridTemplateColumns: 'repeat(5, minmax(0, 1fr))' }}
           >
             {METRICS.map(({ label, format }) => {
-              const displayLabel = label === 'Goals' ? `Goals (${selectedGoal})` : label
+              const displayLabel = label === 'Goals' ? (selectedGoal ? `Goals (${selectedGoal})` : 'Goals') : label
+              const goalNoSelection = label === 'Goals' && !selectedGoal && integrationState !== 'apple-only'
+              const goalAppleOnly   = label === 'Goals' && integrationState === 'apple-only'
               return (
                 <OverviewMetricCard
                   key={label}
@@ -442,7 +453,8 @@ export default function OverviewPage({ selectedApp, campaignGroup, integrationSt
                   data={metricData[label]}
                   format={format}
                   dateRange={dateRange}
-                  isEmpty={label === 'Goals' && integrationState === 'apple-only'}
+                  isEmpty={goalAppleOnly || goalNoSelection}
+                  emptyPrompt={goalNoSelection ? 'Please select a goal to display this metric.' : undefined}
                 />
               )
             })}

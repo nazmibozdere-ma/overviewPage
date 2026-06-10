@@ -17,6 +17,13 @@ const CAMPAIGN_DATA = {
     { name: 'New User Acquisition',   spend:  9840, installs: 3320, installsDelta:  -2.8, taps: 22600, ttr: 5.8, avgCpt: 0.44 },
     { name: 'Brand US',               spend:  7930, installs: 2680, installsDelta:  +5.3, taps: 18400, ttr: 6.9, avgCpt: 0.43 },
   ],
+  'Mock App': [
+    { name: 'Brand – Global',         spend:  9210, installs: 3180, installsDelta:  +7.2, taps: 23400, ttr: 6.1, avgCpt: 0.39 },
+    { name: 'App Install – Broad',    spend:  7640, installs: 2540, installsDelta:  -4.3, taps: 18200, ttr: 5.6, avgCpt: 0.42 },
+    { name: 'Retargeting – US',       spend:  5980, installs: 1920, installsDelta: +11.8, taps: 13600, ttr: 7.0, avgCpt: 0.44 },
+    { name: 'Category Discovery',     spend:  4820, installs: 1580, installsDelta:  -1.6, taps: 10800, ttr: 5.2, avgCpt: 0.45 },
+    { name: 'New Users – CA/AU',      spend:  3540, installs: 1140, installsDelta:  +9.4, taps:  8100, ttr: 6.4, avgCpt: 0.44 },
+  ],
 }
 
 // ── Cell components ───────────────────────────────────────────────────────────

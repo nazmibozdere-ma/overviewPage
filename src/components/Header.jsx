@@ -20,7 +20,7 @@ export const CAMPAIGN_GROUPS = [
     email:           'elisa.reyna@squareup.com',
     initial:         'S',
     color:           '#4B7BF5',
-    app:             'Square Point of Sale (POS)',
+    apps:            ['Square Point of Sale (POS)'],
     integrationDate: 'Feb 12, 2025',
   },
   {
@@ -29,7 +29,7 @@ export const CAMPAIGN_GROUPS = [
     email:           'marcus.cole@squareup.com',
     initial:         'S',
     color:           '#10b981',
-    app:             'Cash App',
+    apps:            ['Cash App', 'Mock App'],
     integrationDate: 'Mar 8, 2025',
   },
   {
@@ -38,7 +38,7 @@ export const CAMPAIGN_GROUPS = [
     email:           'anna.becker@afterpay.com',
     initial:         'A',
     color:           '#8b5cf6',
-    app:             'Afterpay',
+    apps:            ['Afterpay'],
     integrationDate: 'Jul 22, 2025',
   },
 ]

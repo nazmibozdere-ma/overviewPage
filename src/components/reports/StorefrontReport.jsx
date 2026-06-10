@@ -18,6 +18,7 @@ const STOREFRONTS = [
 const APP_DISTRIBUTION = {
   'Square Point of Sale (POS)': { US: 0.671, UK: 0.082, CA: 0.121, AU: 0.062, DE: 0.031, FR: 0.018, JP: 0.009, KR: 0.006 },
   'Cash App':                   { US: 0.724, UK: 0.138, CA: 0.063, AU: 0.041, DE: 0.019, FR: 0.009, JP: 0.004, KR: 0.002 },
+  'Mock App':                   { US: 0.582, UK: 0.104, CA: 0.138, AU: 0.071, DE: 0.058, FR: 0.027, JP: 0.012, KR: 0.008 },
 }
 
 // Multiplicative modifiers per metric per country — applied to base distribution then

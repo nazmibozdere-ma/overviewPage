@@ -29,6 +29,18 @@ const TOP_SPENDER_DATA = {
     { keyword: 'debit card app',       spend:  710, installs: 193, taps: 4120, ttr: 7.0, cpt: 1.22, cptChange:  -0.5 },
     { keyword: 'stock trading app',    spend:  620, installs:  41, taps: 2280, ttr: 5.2, cpt: 1.61, cptChange:  +9.8 },
   ],
+  'Mock App': [
+    { keyword: 'productivity app',     spend:  720, installs: 198, taps: 4240, ttr: 6.4, cpt: 1.18, cptChange:  +3.6 },
+    { keyword: 'task manager',         spend:  610, installs: 172, taps: 3620, ttr: 5.9, cpt: 1.04, cptChange:  -2.2 },
+    { keyword: 'business app',         spend:  580, installs: 241, taps: 3980, ttr: 7.2, cpt: 0.98, cptChange:  +4.7 },
+    { keyword: 'workflow automation',  spend:  540, installs:  36, taps: 1880, ttr: 4.5, cpt: 1.32, cptChange:  +9.1 },
+    { keyword: 'team collaboration',   spend:  490, installs: 148, taps: 2960, ttr: 5.6, cpt: 1.45, cptChange:  +6.8 },
+    { keyword: 'project management',   spend:  470, installs: 184, taps: 3240, ttr: 6.1, cpt: 1.11, cptChange:  +1.9 },
+    { keyword: 'note taking app',      spend:  440, installs: 221, taps: 3560, ttr: 7.0, cpt: 0.88, cptChange:  -1.3 },
+    { keyword: 'schedule planner',     spend:  420, installs:  29, taps: 1620, ttr: 4.0, cpt: 1.39, cptChange:  +7.5 },
+    { keyword: 'time tracker app',     spend:  400, installs: 126, taps: 2380, ttr: 5.3, cpt: 0.96, cptChange:  -0.6 },
+    { keyword: 'goal tracker',         spend:  370, installs:  24, taps: 1480, ttr: 4.2, cpt: 1.52, cptChange: +10.3 },
+  ],
 }
 
 function ChangeBadge({ value }) {

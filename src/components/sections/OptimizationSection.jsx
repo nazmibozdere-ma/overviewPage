@@ -54,6 +54,32 @@ const OPTIMIZATION_DATA = {
       utilizationRatio:  58,
     },
   },
+  'Mock App': {
+    smartBidding: {
+      total:         4,
+      active:        2,
+      paused:        1,
+      spendImpacted: 17400,
+    },
+    automations: {
+      total:        5,
+      active:       3,
+      paused:       1,
+      actionsTaken: 84,
+    },
+    cppTesting: {
+      total:         3,
+      active:        1,
+      completed:     1,
+      spendImpacted: 26800,
+    },
+    budgetAllocation: {
+      total:             3,
+      active:            2,
+      campaignsAffected: 5,
+      utilizationRatio:  66,
+    },
+  },
 }
 
 // ── Shared primitives ─────────────────────────────────────────────────────────
