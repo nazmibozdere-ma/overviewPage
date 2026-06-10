@@ -1,33 +1,33 @@
 import { useState } from 'react'
-import { ChevronDown, ChevronUp, ChevronLeft, ChevronRight, ArrowUpRight, ArrowDownLeft, ChevronsUpDown } from 'lucide-react'
+import { ChevronDown, ChevronUp, ChevronLeft, ChevronRight, ArrowUpRight, ArrowDownLeft, ArrowRight, ChevronsUpDown } from 'lucide-react'
 
 const PAGE_SIZE = 5
 
 // Top 10 keywords by spend, with all required fields
 const TOP_SPENDER_DATA = {
   'Square Point of Sale (POS)': [
-    { keyword: 'square payment',       spend: 820, installs: 258, cpt: 1.24, cptChange:  +3.2 },
-    { keyword: 'pos system',           spend: 680, installs: 209, cpt: 0.98, cptChange:  -1.4 },
-    { keyword: 'free pos system',      spend: 620, installs: 295, cpt: 1.10, cptChange:  +5.1 },
-    { keyword: 'online payment',       spend: 590, installs:  42, cpt: 1.38, cptChange:  +8.7 },
-    { keyword: 'payment processing',   spend: 540, installs: 163, cpt: 1.52, cptChange:  +8.1 },
-    { keyword: 'small business app',   spend: 540, installs: 220, cpt: 1.05, cptChange:  +2.4 },
-    { keyword: 'merchant account',     spend: 510, installs:  38, cpt: 1.41, cptChange:  +6.3 },
-    { keyword: 'cashier app',          spend: 480, installs: 179, cpt: 0.92, cptChange:  -0.8 },
-    { keyword: 'credit card reader',   spend: 460, installs: 134, cpt: 0.87, cptChange:  -2.8 },
-    { keyword: 'payment gateway',      spend: 440, installs:  31, cpt: 1.58, cptChange:  +9.4 },
+    { keyword: 'square payment',       spend: 820, installs: 258, taps: 4820, ttr: 6.2, cpt: 1.24, cptChange:  +3.2 },
+    { keyword: 'pos system',           spend: 680, installs: 209, taps: 3910, ttr: 5.8, cpt: 0.98, cptChange:  -1.4 },
+    { keyword: 'free pos system',      spend: 620, installs: 295, taps: 4240, ttr: 7.1, cpt: 1.10, cptChange:  +5.1 },
+    { keyword: 'online payment',       spend: 590, installs:  42, taps: 2180, ttr: 4.9, cpt: 1.38, cptChange:  +8.7 },
+    { keyword: 'payment processing',   spend: 540, installs: 163, taps: 3360, ttr: 5.4, cpt: 1.52, cptChange:  +8.1 },
+    { keyword: 'small business app',   spend: 540, installs: 220, taps: 3780, ttr: 6.8, cpt: 1.05, cptChange:  +2.4 },
+    { keyword: 'merchant account',     spend: 510, installs:  38, taps: 1940, ttr: 4.2, cpt: 1.41, cptChange:  +6.3 },
+    { keyword: 'cashier app',          spend: 480, installs: 179, taps: 2960, ttr: 6.5, cpt: 0.92, cptChange:  -0.8 },
+    { keyword: 'credit card reader',   spend: 460, installs: 134, taps: 2540, ttr: 5.1, cpt: 0.87, cptChange:  -2.8 },
+    { keyword: 'payment gateway',      spend: 440, installs:  31, taps: 1720, ttr: 4.6, cpt: 1.58, cptChange:  +9.4 },
   ],
   'Cash App': [
-    { keyword: 'send money app',       spend: 1240, installs: 280, cpt: 1.68, cptChange:  +4.8 },
-    { keyword: 'money transfer',       spend:  980, installs: 214, cpt: 1.42, cptChange:  -2.1 },
-    { keyword: 'free money app',       spend:  980, installs: 305, cpt: 1.31, cptChange:  +3.9 },
-    { keyword: 'crypto wallet app',    spend:  890, installs:  58, cpt: 1.72, cptChange: +11.2 },
-    { keyword: 'cash transfer app',    spend:  820, installs: 176, cpt: 1.89, cptChange:  +7.3 },
-    { keyword: 'cash advance app',     spend:  820, installs: 232, cpt: 1.44, cptChange:  +2.6 },
-    { keyword: 'bitcoin purchase app', spend:  740, installs:  48, cpt: 1.95, cptChange: +13.4 },
-    { keyword: 'peer payment',         spend:  690, installs: 152, cpt: 1.35, cptChange:  -1.6 },
-    { keyword: 'debit card app',       spend:  710, installs: 193, cpt: 1.22, cptChange:  -0.5 },
-    { keyword: 'stock trading app',    spend:  620, installs:  41, cpt: 1.61, cptChange:  +9.8 },
+    { keyword: 'send money app',       spend: 1240, installs: 280, taps: 6820, ttr: 7.4, cpt: 1.68, cptChange:  +4.8 },
+    { keyword: 'money transfer',       spend:  980, installs: 214, taps: 5340, ttr: 6.1, cpt: 1.42, cptChange:  -2.1 },
+    { keyword: 'free money app',       spend:  980, installs: 305, taps: 5910, ttr: 7.8, cpt: 1.31, cptChange:  +3.9 },
+    { keyword: 'crypto wallet app',    spend:  890, installs:  58, taps: 3120, ttr: 4.8, cpt: 1.72, cptChange: +11.2 },
+    { keyword: 'cash transfer app',    spend:  820, installs: 176, taps: 4480, ttr: 5.9, cpt: 1.89, cptChange:  +7.3 },
+    { keyword: 'cash advance app',     spend:  820, installs: 232, taps: 4760, ttr: 6.6, cpt: 1.44, cptChange:  +2.6 },
+    { keyword: 'bitcoin purchase app', spend:  740, installs:  48, taps: 2640, ttr: 4.3, cpt: 1.95, cptChange: +13.4 },
+    { keyword: 'peer payment',         spend:  690, installs: 152, taps: 3890, ttr: 6.2, cpt: 1.35, cptChange:  -1.6 },
+    { keyword: 'debit card app',       spend:  710, installs: 193, taps: 4120, ttr: 7.0, cpt: 1.22, cptChange:  -0.5 },
+    { keyword: 'stock trading app',    spend:  620, installs:  41, taps: 2280, ttr: 5.2, cpt: 1.61, cptChange:  +9.8 },
   ],
 }
 
@@ -51,10 +51,12 @@ function ChangeBadge({ value }) {
 }
 
 const COLUMNS = [
-  { key: 'keyword',   compare: (a, b, dir) => dir === 'asc' ? a.keyword.localeCompare(b.keyword)  : b.keyword.localeCompare(a.keyword) },
+  { key: 'keyword',   compare: (a, b, dir) => dir === 'asc' ? a.keyword.localeCompare(b.keyword) : b.keyword.localeCompare(a.keyword) },
   { key: 'spend',     compare: (a, b, dir) => dir === 'asc' ? a.spend    - b.spend    : b.spend    - a.spend },
   { key: 'installs',  compare: (a, b, dir) => dir === 'asc' ? a.installs - b.installs : b.installs - a.installs },
-  { key: 'cpt',       compare: (a, b, dir) => dir === 'asc' ? a.cpt      - b.cpt      : b.cpt      - a.cpt },
+  { key: 'taps',      compare: (a, b, dir) => dir === 'asc' ? a.taps - b.taps : b.taps - a.taps },
+  { key: 'ttr',       compare: (a, b, dir) => dir === 'asc' ? a.ttr  - b.ttr  : b.ttr  - a.ttr },
+  { key: 'cpt',       compare: (a, b, dir) => dir === 'asc' ? a.cpt  - b.cpt  : b.cpt  - a.cpt },
 ]
 
 export default function TopSpenderTable({ app }) {
@@ -121,11 +123,27 @@ export default function TopSpenderTable({ app }) {
           <SortIcon colKey="installs" />
         </button>
         <button
+          onClick={() => handleSort('taps')}
+          className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none"
+          style={{ color: '#6b7280', width: 52 }}
+        >
+          Taps
+          <SortIcon colKey="taps" />
+        </button>
+        <button
+          onClick={() => handleSort('ttr')}
+          className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none"
+          style={{ color: '#6b7280', width: 44 }}
+        >
+          TTR
+          <SortIcon colKey="ttr" />
+        </button>
+        <button
           onClick={() => handleSort('cpt')}
           className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none"
-          style={{ color: '#6b7280', width: 72 }}
+          style={{ color: '#6b7280', width: 80 }}
         >
-          CPT
+          Average CPT
           <SortIcon colKey="cpt" />
         </button>
       </div>
@@ -147,7 +165,13 @@ export default function TopSpenderTable({ app }) {
             <div className="text-xs font-medium text-right" style={{ color: '#111827', width: 52 }}>
               {kw.installs.toLocaleString()}
             </div>
-            <div className="flex flex-col items-end gap-0.5" style={{ width: 72 }}>
+            <div className="text-xs font-medium text-right" style={{ color: '#111827', width: 52 }}>
+              {kw.taps.toLocaleString()}
+            </div>
+            <div className="text-xs font-medium text-right" style={{ color: '#111827', width: 44 }}>
+              {kw.ttr.toFixed(1)}%
+            </div>
+            <div className="flex flex-col items-end gap-0.5" style={{ width: 80 }}>
               <span className="text-xs font-medium" style={{ color: '#111827' }}>${kw.cpt.toFixed(2)}</span>
               <ChangeBadge value={kw.cptChange} />
             </div>
@@ -181,6 +205,14 @@ export default function TopSpenderTable({ app }) {
             <ChevronRight size={12} />
           </button>
         </div>
+      </div>
+
+      {/* Nav link */}
+      <div className="flex justify-end mt-3 pt-3" style={{ borderTop: '1px solid #f3f4f6' }}>
+        <button className="inline-flex items-center gap-1 text-xs font-medium" style={{ color: '#4B7BF5' }}>
+          See top spender keywords on Ads Manager
+          <ArrowRight size={11} />
+        </button>
       </div>
     </div>
   )

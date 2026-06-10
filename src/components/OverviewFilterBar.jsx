@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { ChevronDown, Check } from 'lucide-react'
+import { ChevronDown, Check, Info } from 'lucide-react'
 import DateRangePicker from './DateRangePicker'
 
 const APPS = [
@@ -142,7 +142,7 @@ export default function OverviewFilterBar({
   const appleOnly = integrationState === 'apple-only'
 
   return (
-    <div className="flex items-center gap-3 px-8 py-3 bg-white border-b border-gray-100">
+    <div className="flex items-center gap-3 px-6 py-2.5 bg-white border-b border-gray-100">
       <AppDisplay app={selectedApp} />
 
       {!appleOnly && (
@@ -168,11 +168,19 @@ export default function OverviewFilterBar({
         </div>
       )}
 
+      {!appleOnly && (
+        <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg" style={{ backgroundColor: '#f0f4ff' }}>
+          <Info size={12} style={{ color: '#4B7BF5', flexShrink: 0 }} />
+          <span className="text-xs" style={{ color: '#4B7BF5', whiteSpace: 'nowrap' }}>
+            Reporting is based on install time
+          </span>
+        </div>
+      )}
+
       <DateRangePicker
         start={dateRange.start}
         end={dateRange.end}
         onApply={(start, end, preset) => onDateChange(start, end, preset)}
-        hideTimeType={appleOnly}
       />
     </div>
   )

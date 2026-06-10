@@ -210,7 +210,7 @@ export default function Header({ activePage, selectedCampaignGroup, onCampaignGr
   if (activePage === 'Overview') {
     return (
       <div className="bg-white border-b border-gray-100">
-        <div className="flex items-center justify-between px-8" style={{ height: '64px' }}>
+        <div className="flex items-center justify-between px-6" style={{ height: '60px' }}>
           {/* Title + state selector */}
           <div className="flex items-center gap-4">
             <h1 className="text-xl font-bold text-gray-900 tracking-tight">{title}</h1>

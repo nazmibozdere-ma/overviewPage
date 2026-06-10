@@ -1,21 +1,21 @@
 import { useState } from 'react'
-import { ArrowUpRight, ArrowDownLeft, ChevronDown, ChevronUp, ChevronsUpDown } from 'lucide-react'
+import { ArrowUpRight, ArrowDownLeft, ArrowRight, ChevronDown, ChevronUp, ChevronsUpDown } from 'lucide-react'
 
 // ── Mock data ─────────────────────────────────────────────────────────────────
 const CAMPAIGN_DATA = {
   'Square Point of Sale (POS)': [
-    { name: 'Brand – United States',  spend: 14820, installs: 5410, installsDelta: +12.4, budget: 18000, dailyBudget: 1800 },
-    { name: 'App Install – Broad',    spend: 11240, installs: 4180, installsDelta:  -5.2, budget: 14000, dailyBudget: 1500 },
-    { name: 'Competitor Keywords',    spend:  8930, installs: 3020, installsDelta:  +8.7, budget: 12000, dailyBudget: 1200 },
-    { name: 'Seasonal – Q2 2026',     spend:  7650, installs: 2760, installsDelta: +22.1, budget: 10000, dailyBudget:  950 },
-    { name: 'New Users – US',         spend:  6410, installs: 2340, installsDelta:  -3.8, budget:  8000, dailyBudget:  750 },
+    { name: 'Brand – United States',  spend: 14820, installs: 5410, installsDelta: +12.4, taps: 38200, ttr: 6.8, avgCpt: 0.39 },
+    { name: 'App Install – Broad',    spend: 11240, installs: 4180, installsDelta:  -5.2, taps: 29600, ttr: 5.4, avgCpt: 0.38 },
+    { name: 'Competitor Keywords',    spend:  8930, installs: 3020, installsDelta:  +8.7, taps: 21400, ttr: 7.2, avgCpt: 0.42 },
+    { name: 'Seasonal – Q2 2026',     spend:  7650, installs: 2760, installsDelta: +22.1, taps: 18900, ttr: 8.1, avgCpt: 0.40 },
+    { name: 'New Users – US',         spend:  6410, installs: 2340, installsDelta:  -3.8, taps: 15700, ttr: 5.9, avgCpt: 0.41 },
   ],
   'Cash App': [
-    { name: 'P2P Payments – US',      spend: 18360, installs: 6190, installsDelta:  +8.9, budget: 22000, dailyBudget: 1750 },
-    { name: 'Direct Deposit',         spend: 14280, installs: 4820, installsDelta:  -6.1, budget: 18000, dailyBudget: 1400 },
-    { name: 'Card Activation',        spend: 11620, installs: 3940, installsDelta: +14.2, budget: 14000, dailyBudget: 1100 },
-    { name: 'New User Acquisition',   spend:  9840, installs: 3320, installsDelta:  -2.8, budget: 12000, dailyBudget:  900 },
-    { name: 'Brand US',               spend:  7930, installs: 2680, installsDelta:  +5.3, budget: 10000, dailyBudget:  800 },
+    { name: 'P2P Payments – US',      spend: 18360, installs: 6190, installsDelta:  +8.9, taps: 46800, ttr: 7.4, avgCpt: 0.39 },
+    { name: 'Direct Deposit',         spend: 14280, installs: 4820, installsDelta:  -6.1, taps: 35100, ttr: 6.2, avgCpt: 0.41 },
+    { name: 'Card Activation',        spend: 11620, installs: 3940, installsDelta: +14.2, taps: 27300, ttr: 8.3, avgCpt: 0.43 },
+    { name: 'New User Acquisition',   spend:  9840, installs: 3320, installsDelta:  -2.8, taps: 22600, ttr: 5.8, avgCpt: 0.44 },
+    { name: 'Brand US',               spend:  7930, installs: 2680, installsDelta:  +5.3, taps: 18400, ttr: 6.9, avgCpt: 0.43 },
   ],
 }
 
@@ -40,61 +40,13 @@ function DeltaBadge({ value }) {
   )
 }
 
-function BudgetUtilCell({ spend, budget, dailyBudget }) {
-  const [hovered, setHovered] = useState(false)
-  const pct = Math.min((spend / budget) * 100, 100)
-
-  return (
-    <div
-      className="relative flex justify-end"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <span className="text-xs font-medium cursor-default" style={{ color: '#111827' }}>
-        {pct.toFixed(0)}%
-      </span>
-
-      {hovered && (
-        <div
-          className="absolute z-50 rounded-xl pointer-events-none"
-          style={{
-            backgroundColor: '#1f2937',
-            color: '#f9fafb',
-            padding: '8px 12px',
-            bottom: 'calc(100% + 6px)',
-            right: 0,
-            whiteSpace: 'nowrap',
-            fontSize: 12,
-            lineHeight: 1.5,
-            boxShadow: '0 8px 24px rgba(0,0,0,0.18)',
-          }}
-        >
-          {/* Downward arrow */}
-          <div
-            className="absolute"
-            style={{
-              top: '100%', right: 10,
-              borderWidth: 5, borderStyle: 'solid',
-              borderColor: '#1f2937 transparent transparent transparent',
-            }}
-          />
-          <span style={{ color: '#9ca3af' }}>Daily Budget: </span>
-          <span style={{ fontWeight: 600 }}>${dailyBudget.toLocaleString()}</span>
-        </div>
-      )}
-    </div>
-  )
-}
-
 const COLUMNS = [
-  { key: 'name',    compare: (a, b, dir) => dir === 'asc' ? a.name.localeCompare(b.name)    : b.name.localeCompare(a.name) },
-  { key: 'spend',   compare: (a, b, dir) => dir === 'asc' ? a.spend    - b.spend    : b.spend    - a.spend },
-  { key: 'installs',compare: (a, b, dir) => dir === 'asc' ? a.installs - b.installs : b.installs - a.installs },
-  { key: 'budget',  compare: (a, b, dir) => {
-    const pctA = a.spend / a.budget
-    const pctB = b.spend / b.budget
-    return dir === 'asc' ? pctA - pctB : pctB - pctA
-  }},
+  { key: 'name',     compare: (a, b, dir) => dir === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name) },
+  { key: 'spend',    compare: (a, b, dir) => dir === 'asc' ? a.spend    - b.spend    : b.spend    - a.spend },
+  { key: 'installs', compare: (a, b, dir) => dir === 'asc' ? a.installs - b.installs : b.installs - a.installs },
+  { key: 'taps',     compare: (a, b, dir) => dir === 'asc' ? a.taps     - b.taps     : b.taps     - a.taps },
+  { key: 'ttr',      compare: (a, b, dir) => dir === 'asc' ? a.ttr      - b.ttr      : b.ttr      - a.ttr },
+  { key: 'avgCpt',   compare: (a, b, dir) => dir === 'asc' ? a.avgCpt   - b.avgCpt   : b.avgCpt   - a.avgCpt },
 ]
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -127,16 +79,12 @@ export default function CampaignReport({ app }) {
       className="bg-white rounded-xl border border-gray-200 p-5 flex flex-col"
       style={{ boxShadow: '0 1px 4px 0 rgba(0,0,0,0.06)' }}
     >
-      {/* Header */}
       <h3 className="text-sm font-semibold mb-4" style={{ color: '#111827' }}>
         Top Spender Campaigns
       </h3>
 
       {/* Table header */}
-      <div
-        className="flex items-center gap-3 pb-2 px-1"
-        style={{ borderBottom: '1px solid #f3f4f6' }}
-      >
+      <div className="flex items-center gap-2 pb-2 px-1" style={{ borderBottom: '1px solid #f3f4f6' }}>
         <button
           onClick={() => handleSort('name')}
           className="flex-1 flex items-center gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none"
@@ -145,30 +93,11 @@ export default function CampaignReport({ app }) {
           Campaign
           <SortIcon colKey="name" />
         </button>
-        <button
-          onClick={() => handleSort('spend')}
-          className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none"
-          style={{ color: '#6b7280', width: 72 }}
-        >
-          Spend
-          <SortIcon colKey="spend" />
-        </button>
-        <button
-          onClick={() => handleSort('installs')}
-          className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none"
-          style={{ color: '#6b7280', width: 88 }}
-        >
-          Installs
-          <SortIcon colKey="installs" />
-        </button>
-        <button
-          onClick={() => handleSort('budget')}
-          className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none"
-          style={{ color: '#6b7280', width: 130 }}
-        >
-          Budget Utilization
-          <SortIcon colKey="budget" />
-        </button>
+        <button onClick={() => handleSort('spend')}    className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none" style={{ color: '#6b7280', width: 64 }}>Spend    <SortIcon colKey="spend"    /></button>
+        <button onClick={() => handleSort('installs')} className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none" style={{ color: '#6b7280', width: 72 }}>Installs <SortIcon colKey="installs" /></button>
+        <button onClick={() => handleSort('taps')}     className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none" style={{ color: '#6b7280', width: 56 }}>Taps     <SortIcon colKey="taps"     /></button>
+        <button onClick={() => handleSort('ttr')}      className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none" style={{ color: '#6b7280', width: 44 }}>TTR      <SortIcon colKey="ttr"      /></button>
+        <button onClick={() => handleSort('avgCpt')}   className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none" style={{ color: '#6b7280', width: 68 }}>Avg CPT  <SortIcon colKey="avgCpt"   /></button>
       </div>
 
       {/* Rows */}
@@ -176,35 +105,38 @@ export default function CampaignReport({ app }) {
         {campaigns.map((c) => (
           <div
             key={c.name}
-            className="flex items-center gap-3 py-2.5 rounded-lg px-1 -mx-1 transition-colors hover:bg-gray-50"
+            className="flex items-center gap-2 py-2.5 rounded-lg px-1 -mx-1 transition-colors hover:bg-gray-50"
             style={{ borderBottom: '1px solid #f9fafb' }}
           >
-            {/* Campaign name */}
             <div className="flex-1 min-w-0">
-              <span className="text-xs font-medium truncate block" style={{ color: '#111827' }}>
-                {c.name}
-              </span>
+              <span className="text-xs font-medium truncate block" style={{ color: '#111827' }}>{c.name}</span>
             </div>
-
-            {/* Spend */}
-            <div className="text-xs font-medium text-right" style={{ width: 72, color: '#111827' }}>
+            <div className="text-xs font-medium text-right" style={{ width: 64, color: '#111827' }}>
               ${c.spend.toLocaleString()}
             </div>
-
-            {/* Installs + delta */}
-            <div className="flex flex-col items-end gap-0.5" style={{ width: 88 }}>
-              <span className="text-xs font-medium" style={{ color: '#111827' }}>
-                {c.installs.toLocaleString()}
-              </span>
+            <div className="flex flex-col items-end gap-0.5" style={{ width: 72 }}>
+              <span className="text-xs font-medium" style={{ color: '#111827' }}>{c.installs.toLocaleString()}</span>
               <DeltaBadge value={c.installsDelta} />
             </div>
-
-            {/* Budget utilization */}
-            <div style={{ width: 130 }}>
-              <BudgetUtilCell spend={c.spend} budget={c.budget} dailyBudget={c.dailyBudget} />
+            <div className="text-xs font-medium text-right" style={{ width: 56, color: '#111827' }}>
+              {c.taps.toLocaleString()}
+            </div>
+            <div className="text-xs font-medium text-right" style={{ width: 44, color: '#111827' }}>
+              {c.ttr.toFixed(1)}%
+            </div>
+            <div className="text-xs font-medium text-right" style={{ width: 68, color: '#111827' }}>
+              ${c.avgCpt.toFixed(2)}
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Nav link */}
+      <div className="flex justify-end mt-3 pt-3" style={{ borderTop: '1px solid #f3f4f6' }}>
+        <button className="inline-flex items-center gap-1 text-xs font-medium" style={{ color: '#4B7BF5' }}>
+          See top spender campaigns on Ads Manager
+          <ArrowRight size={11} />
+        </button>
       </div>
     </div>
   )

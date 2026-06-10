@@ -69,7 +69,7 @@ function KeywordPlannerCard() {
 // ── Section ───────────────────────────────────────────────────────────────────
 export default function ToolingSection({ app }) {
   return (
-    <div className="grid gap-4" style={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
+    <div className="grid gap-3" style={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
       <BenchmarksCard />
       <KeywordPlannerCard />
     </div>

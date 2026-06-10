@@ -425,8 +425,8 @@ export default function OverviewPage({ selectedApp, campaignGroup, integrationSt
         integrationState={integrationState}
       />
 
-      <div className="flex-1 overflow-y-auto bg-gray-50 p-6">
-        <div className="space-y-4">
+      <div className="flex-1 overflow-y-auto bg-gray-50 p-5">
+        <div className="space-y-3">
 
           {/* Metric summary cards */}
           <div
@@ -450,8 +450,8 @@ export default function OverviewPage({ selectedApp, campaignGroup, integrationSt
 
           {/* ── Ad Management ── */}
           <SectionLabel title="Ad Management" />
-          <div className="grid gap-4" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
-            <StorefrontReport app={selectedApp} metricData={metricData} integrationState={integrationState} />
+          <StorefrontReport app={selectedApp} metricData={metricData} integrationState={integrationState} />
+          <div className="grid gap-3" style={{ gridTemplateColumns: '1fr 1fr' }}>
             <CampaignReport app={selectedApp} />
             <TopSpenderTable app={selectedApp} />
           </div>
@@ -470,7 +470,7 @@ export default function OverviewPage({ selectedApp, campaignGroup, integrationSt
 
           {/* ── Integrations ── */}
           <SectionLabel title="Integrations" />
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3">
             {/* Apple Ads Integration */}
             <div
               className="bg-white rounded-xl border border-gray-200 p-4 flex flex-col gap-3"

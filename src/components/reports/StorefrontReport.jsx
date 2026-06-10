@@ -180,7 +180,7 @@ function buildChartOptions(data, metricDef) {
     chart: {
       type: 'column',
       backgroundColor: 'transparent',
-      height: 260,
+      height: 220,
       spacing: [12, 8, 8, 8],
       style: { fontFamily: 'inherit' },
     },

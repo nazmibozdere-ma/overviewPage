@@ -239,7 +239,7 @@ export default function OptimizationSection({ app, integrationState }) {
 
   if (integrationState === 'no-optimization') {
     return (
-      <div className="grid gap-4" style={{ gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' }}>
+      <div className="grid gap-3" style={{ gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' }}>
         <EmptyOptCard icon={Zap}          iconColor="#f59e0b" iconBg="#fef3c7" title="Smart Bidding"    navLabel="Go to Smart Bidding"    />
         <EmptyOptCard icon={GitFork}      iconColor="#8b5cf6" iconBg="#f5f3ff" title="Automations"      navLabel="Go to Automations"      />
         <EmptyOptCard icon={FlaskConical} iconColor="#06b6d4" iconBg="#ecfeff" title="CPP A/B Testing"  navLabel="Go to CPP A/B Testing"  />
@@ -249,7 +249,7 @@ export default function OptimizationSection({ app, integrationState }) {
   }
 
   return (
-    <div className="grid gap-4" style={{ gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' }}>
+    <div className="grid gap-3" style={{ gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' }}>
       <SmartBiddingCard     data={data.smartBidding}     />
       <AutomationsCard      data={data.automations}      />
       <CppTestingCard       data={data.cppTesting}       />

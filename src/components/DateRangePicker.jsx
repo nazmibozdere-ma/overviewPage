@@ -30,10 +30,9 @@ function findPresetLabel(start, end) {
   )?.label || null
 }
 
-export default function DateRangePicker({ start, end, onApply, hideTimeType = false }) {
+export default function DateRangePicker({ start, end, onApply }) {
   const [open, setOpen]           = useState(false)
   const [pendingPreset, setPendingPreset] = useState(() => findPresetLabel(start, end) || PRESETS[0].label)
-  const [timeType, setTimeType]   = useState('Event Time')
   const ref = useRef(null)
 
   const activeLabel = findPresetLabel(start, end) || PRESETS[0].label
@@ -109,30 +108,6 @@ export default function DateRangePicker({ start, end, onApply, hideTimeType = fa
             })}
           </div>
 
-          {/* Attribution Window */}
-          {!hideTimeType && (
-            <div
-              className="px-4 py-3 flex items-center gap-2"
-              style={{ borderTop: '1px solid #f3f4f6', borderBottom: '1px solid #f3f4f6' }}
-            >
-              <span className="text-xs font-medium flex-shrink-0" style={{ color: '#6b7280' }}>
-                Attribution:
-              </span>
-              {['Event Time', 'Install Time'].map((opt) => (
-                <button
-                  key={opt}
-                  onClick={() => setTimeType(opt)}
-                  className="flex-1 py-1 rounded-lg text-xs font-medium transition-colors"
-                  style={{
-                    backgroundColor: timeType === opt ? '#0f172a' : '#f3f4f6',
-                    color:           timeType === opt ? '#ffffff' : '#6b7280',
-                  }}
-                >
-                  {opt}
-                </button>
-              ))}
-            </div>
-          )}
 
           {/* Apply */}
           <div className="flex justify-end px-4 py-3">
