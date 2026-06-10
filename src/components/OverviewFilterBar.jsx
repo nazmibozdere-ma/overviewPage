@@ -219,7 +219,6 @@ export default function OverviewFilterBar({
   selectedGoal, onGoalChange,
   integrationState,
 }) {
-  const [selectedAttribution, setSelectedAttribution] = useState(null)
   const appleOnly = integrationState === 'apple-only'
 
   return (
@@ -243,13 +242,6 @@ export default function OverviewFilterBar({
             options={APP_GOALS[selectedApp] || APP_GOALS['Square Point of Sale (POS)']}
             selected={selectedGoal}
             onSelect={onGoalChange}
-          />
-          <MiniDropdown
-            label="Attribution"
-            placeholder="Select an Attribution"
-            options={ATTRIBUTION_OPTIONS}
-            selected={selectedAttribution}
-            onSelect={setSelectedAttribution}
           />
         </div>
       )}

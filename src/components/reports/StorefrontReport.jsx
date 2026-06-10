@@ -214,16 +214,7 @@ function buildChartOptions(data, metricDef) {
       style: { color: '#f9fafb', fontSize: '12px' },
       useHTML: true,
       formatter() {
-        if (this.point.isOther && this.point.breakdown?.length) {
-          const rows = this.point.breakdown
-            .map((b) => `<span style="color:#9ca3af">${b.name}:</span> ${metricDef.fmt(b.value)}`)
-            .join('<br/>')
-          return (
-            `<b>Other Countries</b><br/>` +
-            `${metricDef.fmt(this.y)}<br/>` +
-            `<span style="color:#6b7280;font-size:11px;display:block;margin-top:6px;border-top:1px solid #374151;padding-top:6px">${rows}</span>`
-          )
-        }
+        if (this.point.isOther) return false
         return `<b>${this.key}</b><br/>${metricDef.fmt(this.y)} <span style="color:#9ca3af">(${this.point.pct}%)</span>`
       },
     },
@@ -276,7 +267,7 @@ export default function StorefrontReport({ app, metricData, integrationState }) 
     >
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-semibold" style={{ color: '#111827' }}>
-          Top Spender Countries
+          Top Countries by {metricDef.label}
         </h3>
         <MetricDropdown selected={selectedMetric} onSelect={setSelectedMetric} metrics={availableMetrics} />
       </div>
@@ -288,7 +279,7 @@ export default function StorefrontReport({ app, metricData, integrationState }) 
           className="inline-flex items-center gap-1 text-xs font-medium"
           style={{ color: '#4B7BF5' }}
         >
-          See Top Spender Countries on Ads Manager
+          See Top Countries on Ads Manager
           <ArrowRight size={11} />
         </button>
       </div>

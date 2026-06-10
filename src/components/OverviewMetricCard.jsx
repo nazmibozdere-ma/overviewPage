@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Info } from 'lucide-react'
 import { fmtDate } from './DateRangePicker'
 
 function getPreviousPeriod(start, end) {
@@ -9,8 +9,9 @@ function getPreviousPeriod(start, end) {
   return { prevStart, prevEnd }
 }
 
-export default function OverviewMetricCard({ label, data, format, dateRange, isEmpty, emptyPrompt }) {
+export default function OverviewMetricCard({ label, data, format, dateRange, isEmpty, emptyPrompt, infoTooltip }) {
   const [tooltipVisible, setTooltipVisible] = useState(false)
+  const [infoVisible, setInfoVisible] = useState(false)
 
   const { cur, prev } = data || { cur: 0, prev: 0 }
   const delta = ((cur - prev) / prev) * 100
@@ -26,9 +27,46 @@ export default function OverviewMetricCard({ label, data, format, dateRange, isE
     >
       {/* Label row */}
       <div className="flex items-center justify-between gap-2 mb-2">
-        <span className="text-xs font-semibold truncate" style={{ color: '#374151' }}>
-          {label}
-        </span>
+        <div className="flex items-center gap-1 min-w-0">
+          <span className="text-xs font-semibold truncate" style={{ color: '#374151' }}>
+            {label}
+          </span>
+          {infoTooltip && !isEmpty && (
+            <div
+              className="relative flex-shrink-0"
+              onMouseEnter={() => setInfoVisible(true)}
+              onMouseLeave={() => setInfoVisible(false)}
+            >
+              <Info size={11} style={{ color: '#9ca3af', cursor: 'default' }} />
+              {infoVisible && (
+                <div
+                  className="absolute z-50 rounded-xl text-xs pointer-events-none"
+                  style={{
+                    backgroundColor: '#1f2937',
+                    color: '#f9fafb',
+                    padding: '8px 10px',
+                    top: 'calc(100% + 6px)',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: 220,
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.18)',
+                    lineHeight: 1.5,
+                  }}
+                >
+                  <div
+                    className="absolute"
+                    style={{
+                      bottom: '100%', left: '50%', transform: 'translateX(-50%)',
+                      borderWidth: 5, borderStyle: 'solid',
+                      borderColor: 'transparent transparent #1f2937 transparent',
+                    }}
+                  />
+                  {infoTooltip}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
 
         {/* Delta badge — hidden when empty */}
         {!isEmpty && (

@@ -455,6 +455,7 @@ export default function OverviewPage({ selectedApp, onAppChange, apps, campaignG
                   dateRange={dateRange}
                   isEmpty={goalAppleOnly || goalNoSelection}
                   emptyPrompt={goalNoSelection ? 'Please select a goal to display this metric.' : undefined}
+                  infoTooltip={label === 'Goals' ? 'Reporting based on Tap-Through and Without Re-attribution settings' : undefined}
                 />
               )
             })}
@@ -462,7 +463,28 @@ export default function OverviewPage({ selectedApp, onAppChange, apps, campaignG
 
           {/* ── Ad Management ── */}
           <SectionLabel title="Ad Management" />
-          <StorefrontReport app={selectedApp} metricData={metricData} integrationState={integrationState} />
+          <div className="grid gap-3" style={{ gridTemplateColumns: '1fr 1fr' }}>
+            <StorefrontReport app={selectedApp} metricData={metricData} integrationState={integrationState} />
+            <div
+              className="bg-white rounded-xl border border-gray-200 p-5 flex flex-col"
+              style={{ boxShadow: '0 1px 4px 0 rgba(0,0,0,0.06)' }}
+            >
+              <div className="flex items-center gap-2 mb-4">
+                <div
+                  className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ background: 'linear-gradient(135deg, #4B7BF5 0%, #7B6CF6 100%)' }}
+                >
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M6 1.5c.5 0 1 .4 1.2 1l.6 1.8 1.8.6c.6.2 1 .7 1 1.2s-.4 1-1 1.2l-1.8.6-.6 1.8c-.2.6-.7 1-1.2 1s-1-.4-1.2-1l-.6-1.8-1.8-.6C1.4 7 1 6.5 1 6s.4-1 1-1.2l1.8-.6.6-1.8C4.6 1.9 5.1 1.5 6 1.5z" fill="white"/>
+                  </svg>
+                </div>
+                <h3 className="text-sm font-semibold" style={{ color: '#111827' }}>AI Summary</h3>
+              </div>
+              <div className="flex-1 flex items-center justify-center">
+                <p className="text-xs text-center" style={{ color: '#9ca3af' }}>Content coming soon</p>
+              </div>
+            </div>
+          </div>
           <div className="grid gap-3" style={{ gridTemplateColumns: '1fr 1fr' }}>
             <CampaignReport app={selectedApp} />
             <TopSpenderTable app={selectedApp} />
