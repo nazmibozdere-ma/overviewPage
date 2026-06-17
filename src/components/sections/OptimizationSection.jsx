@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { ArrowRight, Zap, GitFork, FlaskConical, Wallet } from 'lucide-react'
 
 // ── Mock data per app ─────────────────────────────────────────────────────────
@@ -16,16 +17,16 @@ const OPTIMIZATION_DATA = {
       actionsTaken: 128,
     },
     cppTesting: {
-      total:         6,
-      active:        2,
-      completed:     3,
-      spendImpacted: 48200,
+      total:          6,
+      active:         2,
+      paused:         1,
+      completed:      3,
     },
     budgetAllocation: {
-      total:              5,
-      active:             3,
-      campaignsAffected:  8,
-      utilizationRatio:   73,
+      total:            5,
+      active:           3,
+      paused:           2,
+      dailyConsumption: 78,
     },
   },
   'Cash App': {
@@ -42,16 +43,16 @@ const OPTIMIZATION_DATA = {
       actionsTaken: 47,
     },
     cppTesting: {
-      total:         2,
-      active:        0,
-      completed:     1,
-      spendImpacted: 18600,
+      total:     2,
+      active:    0,
+      paused:    1,
+      completed: 1,
     },
     budgetAllocation: {
-      total:             2,
-      active:            1,
-      campaignsAffected: 2,
-      utilizationRatio:  58,
+      total:            2,
+      active:           1,
+      paused:           1,
+      dailyConsumption: 61,
     },
   },
   'Mock App': {
@@ -68,16 +69,16 @@ const OPTIMIZATION_DATA = {
       actionsTaken: 84,
     },
     cppTesting: {
-      total:         3,
-      active:        1,
-      completed:     1,
-      spendImpacted: 26800,
+      total:     3,
+      active:    1,
+      paused:    1,
+      completed: 1,
     },
     budgetAllocation: {
-      total:             3,
-      active:            2,
-      campaignsAffected: 5,
-      utilizationRatio:  66,
+      total:            3,
+      active:           2,
+      paused:           1,
+      dailyConsumption: 69,
     },
   },
 }
@@ -100,12 +101,6 @@ function CardShell({ icon: Icon, iconColor, iconBg, title, children }) {
           </div>
           <span className="text-sm font-semibold" style={{ color: '#111827' }}>{title}</span>
         </div>
-        <span
-          className="text-xs font-medium px-2 py-0.5 rounded-full"
-          style={{ backgroundColor: '#f3f4f6', color: '#6b7280' }}
-        >
-          Last 30 Days
-        </span>
       </div>
       {children}
     </div>
@@ -146,11 +141,43 @@ function StatusRow({ total, primary, secondary }) {
 }
 
 // Prominent KPI stat — separated from status row
-function KpiStat({ label, value, sub }) {
+function KpiStat({ label, value, sub, tooltip }) {
+  const [visible, setVisible] = useState(false)
   return (
     <div className="pt-3 mt-1" style={{ borderTop: '1px solid #f3f4f6' }}>
-      <div className="text-xs font-medium mb-1" style={{ color: '#6b7280' }}>{label}</div>
-      <div className="text-2xl font-bold tracking-tight" style={{ color: '#111827' }}>{value}</div>
+      <div
+        className="relative inline-block"
+        onMouseEnter={() => tooltip && setVisible(true)}
+        onMouseLeave={() => setVisible(false)}
+      >
+        <div className="text-xs font-medium mb-1" style={{ color: '#6b7280', cursor: tooltip ? 'default' : undefined }}>{label}</div>
+        <div className="text-2xl font-bold tracking-tight" style={{ color: '#111827' }}>{value}</div>
+        {visible && (
+          <div
+            className="absolute z-50 rounded-xl text-xs pointer-events-none"
+            style={{
+              backgroundColor: '#1f2937',
+              color: '#f9fafb',
+              padding: '8px 10px',
+              bottom: 'calc(100% + 6px)',
+              left: 0,
+              width: 220,
+              lineHeight: 1.5,
+              boxShadow: '0 8px 24px rgba(0,0,0,0.18)',
+            }}
+          >
+            <div
+              className="absolute"
+              style={{
+                top: '100%', left: 16,
+                borderWidth: 5, borderStyle: 'solid',
+                borderColor: '#1f2937 transparent transparent transparent',
+              }}
+            />
+            {tooltip}
+          </div>
+        )}
+      </div>
       {sub && <div className="text-xs mt-0.5" style={{ color: '#9ca3af' }}>{sub}</div>}
     </div>
   )
@@ -202,6 +229,7 @@ function SmartBiddingCard({ data }) {
       <KpiStat
         label="Spend Impacted"
         value={`$${data.spendImpacted.toLocaleString()}`}
+        tooltip="Total spend on campaigns where Smart Bidding adjusted keyword bids in the last 7 days."
       />
       <NavButton label="Go to Smart Bidding" />
     </CardShell>
@@ -219,6 +247,7 @@ function AutomationsCard({ data }) {
       <KpiStat
         label="Successful Actions Taken"
         value={data.actionsTaken.toLocaleString()}
+        tooltip="Number of successful actions taken by Automations in the last 7 days."
       />
       <NavButton label="Go to Automations" />
     </CardShell>
@@ -231,11 +260,12 @@ function CppTestingCard({ data }) {
       <StatusRow
         total={data.total}
         primary={{ label: 'Active', value: data.active }}
-        secondary={{ label: 'Completed', value: data.completed }}
+        secondary={{ label: 'Paused', value: data.paused }}
       />
       <KpiStat
-        label="Spend Impacted"
-        value={`$${data.spendImpacted.toLocaleString()}`}
+        label="Completed Tests"
+        value={data.completed}
+        tooltip="Total number of completed CPP A/B tests for the selected app."
       />
       <NavButton label="Go to CPP A/B Testing" />
     </CardShell>
@@ -248,11 +278,12 @@ function BudgetAllocationCard({ data }) {
       <StatusRow
         total={data.total}
         primary={{ label: 'Active', value: data.active }}
-        secondary={{ label: 'Campaigns Affected', value: data.campaignsAffected }}
+        secondary={{ label: 'Paused', value: data.paused }}
       />
       <KpiStat
-        label="Budget Utilization Ratio"
-        value={`${data.utilizationRatio}%`}
+        label="Daily Budget Consumption"
+        value={`${data.dailyConsumption}%`}
+        tooltip="Percentage of total daily budget consumed by active Budget Allocations."
       />
       <NavButton label="Go to Budget Allocation" />
     </CardShell>
