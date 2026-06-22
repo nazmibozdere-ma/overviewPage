@@ -3,43 +3,42 @@ import { ChevronDown, ChevronUp, ChevronLeft, ChevronRight, ArrowUpRight, ArrowD
 
 const PAGE_SIZE = 5
 
-// Top 10 keywords by spend, with all required fields
 const TOP_SPENDER_DATA = {
   'Square Point of Sale (POS)': [
-    { keyword: 'square payment',       spend: 820, installs: 258, taps: 4820, ttr: 6.2, cpt: 1.24, cptChange:  +3.2 },
-    { keyword: 'pos system',           spend: 680, installs: 209, taps: 3910, ttr: 5.8, cpt: 0.98, cptChange:  -1.4 },
-    { keyword: 'free pos system',      spend: 620, installs: 295, taps: 4240, ttr: 7.1, cpt: 1.10, cptChange:  +5.1 },
-    { keyword: 'online payment',       spend: 590, installs:  42, taps: 2180, ttr: 4.9, cpt: 1.38, cptChange:  +8.7 },
-    { keyword: 'payment processing',   spend: 540, installs: 163, taps: 3360, ttr: 5.4, cpt: 1.52, cptChange:  +8.1 },
-    { keyword: 'small business app',   spend: 540, installs: 220, taps: 3780, ttr: 6.8, cpt: 1.05, cptChange:  +2.4 },
-    { keyword: 'merchant account',     spend: 510, installs:  38, taps: 1940, ttr: 4.2, cpt: 1.41, cptChange:  +6.3 },
-    { keyword: 'cashier app',          spend: 480, installs: 179, taps: 2960, ttr: 6.5, cpt: 0.92, cptChange:  -0.8 },
-    { keyword: 'credit card reader',   spend: 460, installs: 134, taps: 2540, ttr: 5.1, cpt: 0.87, cptChange:  -2.8 },
-    { keyword: 'payment gateway',      spend: 440, installs:  31, taps: 1720, ttr: 4.6, cpt: 1.58, cptChange:  +9.4 },
+    { keyword: 'square payment',       spend: 820, impressions: 13200, taps: 4820, installs: 258, ttr: 6.2, cpt: 1.24, cptChange:  +3.2 },
+    { keyword: 'pos system',           spend: 680, impressions: 10800, taps: 3910, installs: 209, ttr: 5.8, cpt: 0.98, cptChange:  -1.4 },
+    { keyword: 'free pos system',      spend: 620, impressions:  9600, taps: 4240, installs: 295, ttr: 7.1, cpt: 1.10, cptChange:  +5.1 },
+    { keyword: 'online payment',       spend: 590, impressions:  7200, taps: 2180, installs:  42, ttr: 4.9, cpt: 1.38, cptChange:  +8.7 },
+    { keyword: 'payment processing',   spend: 540, impressions:  8400, taps: 3360, installs: 163, ttr: 5.4, cpt: 1.52, cptChange:  +8.1 },
+    { keyword: 'small business app',   spend: 540, impressions:  9100, taps: 3780, installs: 220, ttr: 6.8, cpt: 1.05, cptChange:  +2.4 },
+    { keyword: 'merchant account',     spend: 510, impressions:  6200, taps: 1940, installs:  38, ttr: 4.2, cpt: 1.41, cptChange:  +6.3 },
+    { keyword: 'cashier app',          spend: 480, impressions:  7400, taps: 2960, installs: 179, ttr: 6.5, cpt: 0.92, cptChange:  -0.8 },
+    { keyword: 'credit card reader',   spend: 460, impressions:  6800, taps: 2540, installs: 134, ttr: 5.1, cpt: 0.87, cptChange:  -2.8 },
+    { keyword: 'payment gateway',      spend: 440, impressions:  5800, taps: 1720, installs:  31, ttr: 4.6, cpt: 1.58, cptChange:  +9.4 },
   ],
   'Cash App': [
-    { keyword: 'send money app',       spend: 1240, installs: 280, taps: 6820, ttr: 7.4, cpt: 1.68, cptChange:  +4.8 },
-    { keyword: 'money transfer',       spend:  980, installs: 214, taps: 5340, ttr: 6.1, cpt: 1.42, cptChange:  -2.1 },
-    { keyword: 'free money app',       spend:  980, installs: 305, taps: 5910, ttr: 7.8, cpt: 1.31, cptChange:  +3.9 },
-    { keyword: 'crypto wallet app',    spend:  890, installs:  58, taps: 3120, ttr: 4.8, cpt: 1.72, cptChange: +11.2 },
-    { keyword: 'cash transfer app',    spend:  820, installs: 176, taps: 4480, ttr: 5.9, cpt: 1.89, cptChange:  +7.3 },
-    { keyword: 'cash advance app',     spend:  820, installs: 232, taps: 4760, ttr: 6.6, cpt: 1.44, cptChange:  +2.6 },
-    { keyword: 'bitcoin purchase app', spend:  740, installs:  48, taps: 2640, ttr: 4.3, cpt: 1.95, cptChange: +13.4 },
-    { keyword: 'peer payment',         spend:  690, installs: 152, taps: 3890, ttr: 6.2, cpt: 1.35, cptChange:  -1.6 },
-    { keyword: 'debit card app',       spend:  710, installs: 193, taps: 4120, ttr: 7.0, cpt: 1.22, cptChange:  -0.5 },
-    { keyword: 'stock trading app',    spend:  620, installs:  41, taps: 2280, ttr: 5.2, cpt: 1.61, cptChange:  +9.8 },
+    { keyword: 'send money app',       spend: 1240, impressions: 19800, taps: 6820, installs: 280, ttr: 7.4, cpt: 1.68, cptChange:  +4.8 },
+    { keyword: 'money transfer',       spend:  980, impressions: 15200, taps: 5340, installs: 214, ttr: 6.1, cpt: 1.42, cptChange:  -2.1 },
+    { keyword: 'free money app',       spend:  980, impressions: 14600, taps: 5910, installs: 305, ttr: 7.8, cpt: 1.31, cptChange:  +3.9 },
+    { keyword: 'crypto wallet app',    spend:  890, impressions: 10200, taps: 3120, installs:  58, ttr: 4.8, cpt: 1.72, cptChange: +11.2 },
+    { keyword: 'cash transfer app',    spend:  820, impressions: 12400, taps: 4480, installs: 176, ttr: 5.9, cpt: 1.89, cptChange:  +7.3 },
+    { keyword: 'cash advance app',     spend:  820, impressions: 13000, taps: 4760, installs: 232, ttr: 6.6, cpt: 1.44, cptChange:  +2.6 },
+    { keyword: 'bitcoin purchase app', spend:  740, impressions:  8800, taps: 2640, installs:  48, ttr: 4.3, cpt: 1.95, cptChange: +13.4 },
+    { keyword: 'peer payment',         spend:  690, impressions: 10600, taps: 3890, installs: 152, ttr: 6.2, cpt: 1.35, cptChange:  -1.6 },
+    { keyword: 'debit card app',       spend:  710, impressions: 11400, taps: 4120, installs: 193, ttr: 7.0, cpt: 1.22, cptChange:  -0.5 },
+    { keyword: 'stock trading app',    spend:  620, impressions:  7600, taps: 2280, installs:  41, ttr: 5.2, cpt: 1.61, cptChange:  +9.8 },
   ],
   'Mock App': [
-    { keyword: 'productivity app',     spend:  720, installs: 198, taps: 4240, ttr: 6.4, cpt: 1.18, cptChange:  +3.6 },
-    { keyword: 'task manager',         spend:  610, installs: 172, taps: 3620, ttr: 5.9, cpt: 1.04, cptChange:  -2.2 },
-    { keyword: 'business app',         spend:  580, installs: 241, taps: 3980, ttr: 7.2, cpt: 0.98, cptChange:  +4.7 },
-    { keyword: 'workflow automation',  spend:  540, installs:  36, taps: 1880, ttr: 4.5, cpt: 1.32, cptChange:  +9.1 },
-    { keyword: 'team collaboration',   spend:  490, installs: 148, taps: 2960, ttr: 5.6, cpt: 1.45, cptChange:  +6.8 },
-    { keyword: 'project management',   spend:  470, installs: 184, taps: 3240, ttr: 6.1, cpt: 1.11, cptChange:  +1.9 },
-    { keyword: 'note taking app',      spend:  440, installs: 221, taps: 3560, ttr: 7.0, cpt: 0.88, cptChange:  -1.3 },
-    { keyword: 'schedule planner',     spend:  420, installs:  29, taps: 1620, ttr: 4.0, cpt: 1.39, cptChange:  +7.5 },
-    { keyword: 'time tracker app',     spend:  400, installs: 126, taps: 2380, ttr: 5.3, cpt: 0.96, cptChange:  -0.6 },
-    { keyword: 'goal tracker',         spend:  370, installs:  24, taps: 1480, ttr: 4.2, cpt: 1.52, cptChange: +10.3 },
+    { keyword: 'productivity app',     spend:  720, impressions: 11400, taps: 4240, installs: 198, ttr: 6.4, cpt: 1.18, cptChange:  +3.6 },
+    { keyword: 'task manager',         spend:  610, impressions:  9800, taps: 3620, installs: 172, ttr: 5.9, cpt: 1.04, cptChange:  -2.2 },
+    { keyword: 'business app',         spend:  580, impressions:  9200, taps: 3980, installs: 241, ttr: 7.2, cpt: 0.98, cptChange:  +4.7 },
+    { keyword: 'workflow automation',  spend:  540, impressions:  6400, taps: 1880, installs:  36, ttr: 4.5, cpt: 1.32, cptChange:  +9.1 },
+    { keyword: 'team collaboration',   spend:  490, impressions:  8200, taps: 2960, installs: 148, ttr: 5.6, cpt: 1.45, cptChange:  +6.8 },
+    { keyword: 'project management',   spend:  470, impressions:  8600, taps: 3240, installs: 184, ttr: 6.1, cpt: 1.11, cptChange:  +1.9 },
+    { keyword: 'note taking app',      spend:  440, impressions:  9400, taps: 3560, installs: 221, ttr: 7.0, cpt: 0.88, cptChange:  -1.3 },
+    { keyword: 'schedule planner',     spend:  420, impressions:  5600, taps: 1620, installs:  29, ttr: 4.0, cpt: 1.39, cptChange:  +7.5 },
+    { keyword: 'time tracker app',     spend:  400, impressions:  7200, taps: 2380, installs: 126, ttr: 5.3, cpt: 0.96, cptChange:  -0.6 },
+    { keyword: 'goal tracker',         spend:  370, impressions:  5200, taps: 1480, installs:  24, ttr: 4.2, cpt: 1.52, cptChange: +10.3 },
   ],
 }
 
@@ -63,18 +62,19 @@ function ChangeBadge({ value }) {
 }
 
 const COLUMNS = [
-  { key: 'keyword',   compare: (a, b, dir) => dir === 'asc' ? a.keyword.localeCompare(b.keyword) : b.keyword.localeCompare(a.keyword) },
-  { key: 'spend',     compare: (a, b, dir) => dir === 'asc' ? a.spend    - b.spend    : b.spend    - a.spend },
-  { key: 'installs',  compare: (a, b, dir) => dir === 'asc' ? a.installs - b.installs : b.installs - a.installs },
-  { key: 'taps',      compare: (a, b, dir) => dir === 'asc' ? a.taps - b.taps : b.taps - a.taps },
-  { key: 'ttr',       compare: (a, b, dir) => dir === 'asc' ? a.ttr  - b.ttr  : b.ttr  - a.ttr },
-  { key: 'cpt',       compare: (a, b, dir) => dir === 'asc' ? a.cpt  - b.cpt  : b.cpt  - a.cpt },
+  { key: 'keyword',     compare: (a, b, dir) => dir === 'asc' ? a.keyword.localeCompare(b.keyword) : b.keyword.localeCompare(a.keyword) },
+  { key: 'spend',       compare: (a, b, dir) => dir === 'asc' ? a.spend       - b.spend       : b.spend       - a.spend },
+  { key: 'impressions', compare: (a, b, dir) => dir === 'asc' ? a.impressions - b.impressions : b.impressions - a.impressions },
+  { key: 'taps',        compare: (a, b, dir) => dir === 'asc' ? a.taps        - b.taps        : b.taps        - a.taps },
+  { key: 'installs',    compare: (a, b, dir) => dir === 'asc' ? a.installs    - b.installs    : b.installs    - a.installs },
+  { key: 'ttr',         compare: (a, b, dir) => dir === 'asc' ? a.ttr         - b.ttr         : b.ttr         - a.ttr },
+  { key: 'cpt',         compare: (a, b, dir) => dir === 'asc' ? a.cpt         - b.cpt         : b.cpt         - a.cpt },
 ]
 
 export default function TopSpenderTable({ app }) {
-  const [page, setPage]         = useState(0)
-  const [sortKey, setSortKey]   = useState('spend')
-  const [sortDir, setSortDir]   = useState('desc')
+  const [page, setPage]       = useState(0)
+  const [sortKey, setSortKey] = useState('spend')
+  const [sortDir, setSortDir] = useState('desc')
 
   const handleSort = (key) => {
     if (key === sortKey) {
@@ -118,46 +118,12 @@ export default function TopSpenderTable({ app }) {
           Keyword
           <SortIcon colKey="keyword" />
         </button>
-        <button
-          onClick={() => handleSort('spend')}
-          className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none"
-          style={{ color: '#6b7280', width: 62 }}
-        >
-          Spend
-          <SortIcon colKey="spend" />
-        </button>
-        <button
-          onClick={() => handleSort('installs')}
-          className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none"
-          style={{ color: '#6b7280', width: 52 }}
-        >
-          Install
-          <SortIcon colKey="installs" />
-        </button>
-        <button
-          onClick={() => handleSort('taps')}
-          className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none"
-          style={{ color: '#6b7280', width: 52 }}
-        >
-          Taps
-          <SortIcon colKey="taps" />
-        </button>
-        <button
-          onClick={() => handleSort('ttr')}
-          className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none"
-          style={{ color: '#6b7280', width: 44 }}
-        >
-          TTR
-          <SortIcon colKey="ttr" />
-        </button>
-        <button
-          onClick={() => handleSort('cpt')}
-          className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none"
-          style={{ color: '#6b7280', width: 80 }}
-        >
-          Average CPT
-          <SortIcon colKey="cpt" />
-        </button>
+        <button onClick={() => handleSort('spend')}       className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none" style={{ color: '#6b7280', width: 56  }}>Spend       <SortIcon colKey="spend"       /></button>
+        <button onClick={() => handleSort('impressions')} className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none" style={{ color: '#6b7280', width: 76  }}>Impressions <SortIcon colKey="impressions" /></button>
+        <button onClick={() => handleSort('taps')}        className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none" style={{ color: '#6b7280', width: 48  }}>Taps        <SortIcon colKey="taps"        /></button>
+        <button onClick={() => handleSort('installs')}    className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none" style={{ color: '#6b7280', width: 52  }}>Installs    <SortIcon colKey="installs"    /></button>
+        <button onClick={() => handleSort('ttr')}         className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none" style={{ color: '#6b7280', width: 36  }}>TTR         <SortIcon colKey="ttr"         /></button>
+        <button onClick={() => handleSort('cpt')}         className="flex items-center justify-end gap-0.5 text-xs font-medium hover:text-gray-900 transition-colors select-none" style={{ color: '#6b7280', width: 76  }}>Average CPT <SortIcon colKey="cpt"         /></button>
       </div>
 
       {/* Rows */}
@@ -171,19 +137,22 @@ export default function TopSpenderTable({ app }) {
             <div className="flex-1 min-w-0">
               <span className="text-xs truncate block" style={{ color: '#111827' }}>{kw.keyword}</span>
             </div>
-            <div className="text-xs font-medium text-right" style={{ color: '#111827', width: 62 }}>
+            <div className="text-xs font-medium text-right" style={{ color: '#111827', width: 56 }}>
               ${kw.spend.toLocaleString()}
+            </div>
+            <div className="text-xs font-medium text-right" style={{ color: '#111827', width: 76 }}>
+              {kw.impressions.toLocaleString()}
+            </div>
+            <div className="text-xs font-medium text-right" style={{ color: '#111827', width: 48 }}>
+              {kw.taps.toLocaleString()}
             </div>
             <div className="text-xs font-medium text-right" style={{ color: '#111827', width: 52 }}>
               {kw.installs.toLocaleString()}
             </div>
-            <div className="text-xs font-medium text-right" style={{ color: '#111827', width: 52 }}>
-              {kw.taps.toLocaleString()}
-            </div>
-            <div className="text-xs font-medium text-right" style={{ color: '#111827', width: 44 }}>
+            <div className="text-xs font-medium text-right" style={{ color: '#111827', width: 36 }}>
               {kw.ttr.toFixed(1)}%
             </div>
-            <div className="flex flex-col items-end gap-0.5" style={{ width: 80 }}>
+            <div className="flex flex-col items-end gap-0.5" style={{ width: 76 }}>
               <span className="text-xs font-medium" style={{ color: '#111827' }}>${kw.cpt.toFixed(2)}</span>
               <ChangeBadge value={kw.cptChange} />
             </div>
